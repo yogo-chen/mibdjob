@@ -18,7 +18,13 @@
 			<h3>Dashboard</h3>
 		</header>
 		<div class="w3-container w3-content" style="padding-top: 96px">
-			<?php if(isEmployee()){include "./dashboard_employee.php";} ?>
+			<?php
+				if(isApplicant()){
+					include "./dashboard_applicant.php";
+				}else if(isEmployee()){
+					include "./dashboard_employee.php";
+				}
+			?>
 		</div>
 	</div>
 </body>

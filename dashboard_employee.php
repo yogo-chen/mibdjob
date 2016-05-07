@@ -1,7 +1,7 @@
 <?php include_once "./server.php"; ?>
 <div class="w3-container w3-section w3-padding-hor-16 w3-card-2 w3-white">
-	<a href="./job_create.php" class="w3-btn-floating w3-xxlarge w3-blue-grey w3-right" style="text-decoration: none;">+</a>
-	<h3 class="w3-center">Active Job List</h3>
+	<a href="./job_create.php" class="w3-btn-floating w3-xxlarge w3-blue w3-right" style="text-decoration: none;">+</a>
+	<h3 class="w3-center">Active Job</h3>
 	<?php 
 		$sql = ("SELECT id_lowongan, posisi, tanggal_tutup FROM lowongan WHERE id_pegawai = :username AND tanggal_tutup > CURRENT_DATE ORDER BY tanggal_tutup ASC");
 		$params = array(":username" => getUsername());
@@ -62,8 +62,8 @@
 						if($pending_count > 0){
 				?>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-question w3-text-blue" style="margin-right: 5px;"></i>
-			<span class="w3-text-blue">
+			<i class="fa fa-question w3-text-yellow" style="margin-right: 5px;"></i>
+			<span class="w3-text-yellow">
 				<?php
 							if($pending_count == 1){
 								echo "1 apply need your respond";
@@ -76,8 +76,8 @@
 						}
 				?>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-check w3-text-teal" style="margin-right: 5px;"></i>
-			<span class="w3-text-teal">
+			<i class="fa fa-check w3-text-green" style="margin-right: 5px;"></i>
+			<span class="w3-text-green">
 				<?php
 						if($accepted_count == 0){
 							echo "no one accepted";
@@ -89,7 +89,7 @@
 				?>
 			</span>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-check w3-text-red" style="margin-right: 5px;"></i>
+			<i class="fa fa-times w3-text-red" style="margin-right: 5px;"></i>
 			<span class="w3-text-red">
 				<?php
 						if($rejected_count == 0){
@@ -192,8 +192,8 @@
 						if($pending_count > 0){
 				?>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-question w3-text-blue" style="margin-right: 5px;"></i>
-			<span class="w3-text-blue">
+			<i class="fa fa-question w3-text-yellow" style="margin-right: 5px;"></i>
+			<span class="w3-text-yellow">
 				<?php
 							if($pending_count == 1){
 								echo "1 apply need your respond";
@@ -206,8 +206,8 @@
 						}
 				?>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-check w3-text-teal" style="margin-right: 5px;"></i>
-			<span class="w3-text-teal">
+			<i class="fa fa-check w3-text-green" style="margin-right: 5px;"></i>
+			<span class="w3-text-green">
 				<?php
 						if($accepted_count == 0){
 							echo "no one accepted";
@@ -219,7 +219,7 @@
 				?>
 			</span>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-check w3-text-red" style="margin-right: 5px;"></i>
+			<i class="fa fa-times w3-text-red" style="margin-right: 5px;"></i>
 			<span class="w3-text-red">
 				<?php
 						if($rejected_count == 0){

@@ -114,7 +114,7 @@
 				if(isLoggedIn() && isApplicant()){
 			?>
 			<div class="w3-container w3-section w3-card-2 w3-white">
-				<h3 class="w3-center">Enrollment Status</h3>
+				<h3 class="w3-center">Submission Status</h3>
 				<hr>
 			<?php
 					$sql = ("SELECT status FROM lamaran WHERE id_pelamar = :username AND id_lowongan = :id_lowongan");
@@ -128,19 +128,19 @@
 				<form method="post" action="action_job_unapply.php">
 					<input type="text" name="id_pelamar" value= <?php echo "\"".getUsername()."\""; ?> class="w3-hide">
 					<input type="text" name="id_lowongan" value= <?php echo "\"".$id_lowongan."\""; ?> class="w3-hide">
-					<p class="w3-xxlarge w3-center w3-opacity"><b>Awaiting for respond</b></p>
-					<input type="submit" value="Unenroll me" class="w3-btn w3-red w3-large w3-right" >
+					<p class="w3-xxlarge w3-center w3-opacity"><b>Waiting for response</b></p>
+					<input type="submit" value="Cancel apply" class="w3-btn w3-red w3-large w3-right" >
 				</form>
 			<?php
 						}else if($status === "accepted"){
 			?>
-				<p class="w3-xxlarge w3-center"><b>Your applied is <span class="w3-text-blue">approved</span></b></p>
-				<button class="w3-btn w3-blue w3-large w3-right" disabled>Enrolled</button>
+				<p class="w3-xxlarge w3-center"><b>Your submission is <span class="w3-text-green">accepted</span></b></p>
+				<button class="w3-btn w3-blue w3-large w3-right" disabled>Applied</button>
 			<?php
 						}else if($status === "rejected"){
 			?>
-				<p class="w3-xxlarge w3-center"><b>Your applied is <span class="w3-text-red">rejected</span></b></p>
-				<button class="w3-btn w3-blue w3-large w3-right" disabled>Enrolled</button>
+				<p class="w3-xxlarge w3-center"><b>Your submission is <span class="w3-text-red">rejected</span></b></p>
+				<button class="w3-btn w3-blue w3-large w3-right" disabled>Applied</button>
 			<?php
 						}
 					}else{
@@ -148,8 +148,8 @@
 				<form method="post" action="action_job_apply.php">
 					<input type="text" name="id_pelamar" value= <?php echo "\"".getUsername()."\""; ?> class="w3-hide">
 					<input type="text" name="id_lowongan" value= <?php echo "\"".$id_lowongan."\""; ?> class="w3-hide">
-					<p class="w3-xxlarge w3-text-teal w3-center"><b>Enroll now!</b></p>
-					<input type="submit" value="Enroll me" class="w3-btn w3-blue w3-large w3-right" >
+					<p class="w3-xxlarge w3-text-green w3-center"><b>Apply now!</b></p>
+					<input type="submit" value="Apply" class="w3-btn w3-blue w3-large w3-right" >
 				</form>
 			<?php
 					}
@@ -170,7 +170,7 @@
 					if($sth->fetch()){
 			?>
 			<div class="w3-container w3-section w3-padding-hor-16 w3-card-2 w3-white">
-				<h3 class="w3-center">Enrolled List</h3>
+				<h3 class="w3-center">Submission List</h3>
 				<?php
 						$sql = ("SELECT p.id_pelamar id_pelamar, pg.nama nama, l.id_lowongan id_lowongan, l.status status, p.gender gender, p.tanggal_lahir birthday FROM lamaran l INNER JOIN pelamar p ON l.id_pelamar = p.id_pelamar INNER JOIN pengguna pg ON pg.id_pengguna = p.id_pelamar WHERE l.id_lowongan = :id_lowongan ORDER BY l.tanggal_status DESC");
 						$params = array(":id_lowongan" => $id_lowongan);
@@ -200,8 +200,8 @@
 								if($status === "accepted"){
 						?>
 						<span class="w3-padding-ver-8">|</span>
-						<i class="fa fa-check w3-text-teal" style="margin-right: 5px;"></i>
-						<span class="w3-text-teal">this apply is accepted</span>
+						<i class="fa fa-check w3-text-green" style="margin-right: 5px;"></i>
+						<span class="w3-text-green">this apply is accepted</span>
 						<?php
 								}else if($status === "rejected"){
 						?>
@@ -227,7 +227,7 @@
 						<input type="text" name="id_lowongan" value= <?php echo "\"".$id_lowongan."\""; ?> class="w3-hide">
 						<input type="text" name="status" value="rejected" class="w3-hide">
 					</form>
-					<button type="submit" class="w3-btn w3-blue" form="accept_form">Accept</button>
+					<button type="submit" class="w3-btn w3-green" form="accept_form">Accept</button>
 					<button type="submit" class="w3-btn w3-red" form="reject_form">Reject</button>
 					<?php
 								}
