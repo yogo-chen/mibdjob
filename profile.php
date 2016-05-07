@@ -17,19 +17,76 @@
 		if(!($res = $sth->fetch())){
 			//print not found
 		}else{
-			$name = $res["nama"];
+			$nama = $res["nama"];
 			$email = $res["email"];
-			$usertype = $res["jenis_pengguna"];
-		}
+			$jenis_pengguna = $res["jenis_pengguna"];
+		
+			if($jenis_pengguna === "applicant"){
+				$sql = ("SELECT no_ktp, gender, tanggal_lahir, lokasi FROM pelamar WHERE id_pelamar = :id_pelamar");
+				$params = array(":id_pelamar" => $id_pengguna);
+				$sth = $dbh->prepare($sql);
+				$sth->execute($params);
 
-		if($usertype === "applicant"){
+				$res = $sth->fetch();
+				$no_ktp = $res["no_ktp"];
+				$tanggal_lahir = $res["tanggal_lahir"];
+				$lokasi = $res["lokasi"];
+			}else if($jenis_pengguna === "employee"){
+				$sql = ("SELECT pr.id_perusahaan id_perusahaan, pr.nama nama_perusahaan, pg.divisi divisi FROM pegawai pg INNER JOIN perusahaan pr ON pg.id_perusahaan = pr.id_perusahaan WHERE pg.id_pegawai = :id_pegawai");
+				$params = array(":id_pegawai" => $id_pengguna);
+				$sth = $dbh->prepare($sql);
+				$sth->execute($params);
 
-		}else if($usertype === "employee"){
+				$res = $sth->fetch();
+				$id_perusahaan = $res["id_perusahaan"];
+				$nama_perusahaan = $res["nama_perusahaan"];
+				$divisi = $res["divisi"];
+			}
 
-		}
+			if($jenis_pengguna === "applicant"){
+				$sql = ("SELECT up.jurusan jurusan, up.tingkat tingkat, up.ip_lulus ip_lulus, up.tanggal_lulus tanggal_lulus, u.nama nama_universitas FROM universitaspelamar up INNER JOIN universitas u ON up.id_universitas = u.id_universitas WHERE up.id_pelamar = :id_pelamar");
+				$params = array(":id_pelamar" => $id_pengguna);
+				$sth = $dbh->prepare($sql);
+				$sth->execute($params);
 
-		if($usertype === "applicant"){
-			$sql = ("SELECT * FROM universitaspelamar up INNER JOIN universitas u ON up.id_universitas = u.id_universitas WHERE up.id_pelamar = :id_pelamar")
+				if($res = $sth->fetchAll()){
+					foreach ($res as $row) {
+						$jurusan = $row["jurusan"];
+						$tingkat = $row["tingkat"];
+						$ip_lulus = $row["ip_lulus"];
+						$tanggal_lulus = $row["tanggal_lulus"];
+						$nama_universitas = $row["nama_universitas"];
+					}
+				}
+
+				$sql = ("SELECT instansi, posisi, keterangan, tanggal_mulai, tanggal_selesai FROM pengalaman WHERE id_pelamar = :id_pelamar");
+				$params = array(":id_pelamar" => $id_pengguna);
+				$sth = $dbh->prepare($sql);
+				$sth->execute($params);
+
+				if($res = $sth->fetchAll()){
+					foreach ($res as $row) {
+						$instansi = $row["instansi"];
+						$posisi = $row["posisi"];
+						$keterangan = $row["keterangan"];
+						$tanggal_mulai = $row["tanggal_mulai"];
+						$tanggal_selesai = $row["tanggal_selesai"];
+					}
+				}
+
+				$sql = ("SELECT nama, keterangan, tanggal FROM prestasi WHERE id_pelamar = :id_pelamar");
+				$params = array(":id_pelamar" => $id_pengguna);
+				$sth = $dbh->prepare($sql);
+				$sth->execute($params);
+
+				if($res = $sth->fetchAll()){
+					foreach ($res as $row) {
+						$nama = $row["nama"];
+						$keterangan = $row["keterangan"];
+						$tanggal = $row["tanggal"];
+					}
+				}
+			}
 		}
 	}else{
 		header("Location: ./index.php");
