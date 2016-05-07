@@ -13,10 +13,10 @@
 	<div class="w3-container w3-padding-hor-16 w3-hover-light-grey">
 		<span class="w3-large"><?php echo $row["posisi"]; ?></span>
 		<p>
-			<i class="fa fa-group"></i>
+			<i class="fa fa-group" style="margin-right: 5px;"></i>
 			<a href=""><?php echo $row["nama_perusahaan"]; ?></a>
 			<span class="w3-padding-ver-8">|</span>
-			<i class="fa fa-dollar w3-text-teal"></i>
+			<i class="fa fa-dollar w3-text-teal" style="margin-right: 5px;"></i>
 			<span class="w3-text-teal"><?php echo "IDR ".number_format($row["gaji"]); ?></span>
 		</p>
 		<a href=<?php echo "\"job_detail.php?id=".$row["id_lowongan"]."\"" ?>><button class="w3-btn w3-purple">View job</button></a>

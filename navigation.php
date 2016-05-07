@@ -14,7 +14,7 @@
 	<div class="w3-center">
 		<?php if(isLoggedIn()){ ?>
 		<p>Welcome, 
-			<a href="" class="w3-hover-text-teal w3-hover-white" style="display: inline; padding: 0px;">
+			<a href="./profile.php" class="w3-hover-text-teal w3-hover-white" style="display: inline; padding: 0px;">
 				<b><?php echo getName();?></b>
 			</a>
 		</p>

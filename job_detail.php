@@ -212,7 +212,7 @@
 								}
 						?>
 					</p>
-					<button class="w3-btn w3-purple">View profile</button>
+					<a href=<?php echo "\"./profile.php?id=".$row["id_pelamar"]."\""; ?>><button class="w3-btn w3-purple">View profile</button></a>
 					<?php
 								if($status === "pending"){
 									$id_pelamar = $row["id_pelamar"];
