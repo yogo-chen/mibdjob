@@ -9,7 +9,7 @@
 	<hr>
 	<a href="./dashboard.php" class="w3-padding w3-large w3-hover-light-grey"><i class="fa fa-home w3-margin-right"></i>Dashboard</a>
 	<a href="./job_list.php" class="w3-padding w3-large w3-hover-light-grey"><i class="fa fa-suitcase w3-margin-right"></i>Job List</a>
-	<a href="#" class="w3-padding w3-large w3-hover-light-grey"><i class="fa fa-group w3-margin-right"></i>Company</a>
+	<a href="./company_list.php" class="w3-padding w3-large w3-hover-light-grey"><i class="fa fa-group w3-margin-right"></i>Company</a>
 	<hr>
 	<div class="w3-center">
 		<?php if(isLoggedIn()){ ?>

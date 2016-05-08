@@ -448,7 +448,7 @@
 					<input name="id_pelamar" value=<?php echo "\"".getUsername()."\"" ?> class="w3-hide">
 					<input name="nama" value=<?php echo "\"".$nama."\"" ?> class="w3-hide">
 					<div class="w3-row">
-						<p><a href="#" onclick="document.getElementById(<?php echo "'remove_".urlencode(getUsername().$nama)."'" ?>).submit()" class="w3-opacity w3-text-red w3-medium">Remove this academic</a></p>
+						<p><a href="#" onclick="document.getElementById(<?php echo "'remove_".urlencode(getUsername().$nama)."'" ?>).submit()" class="w3-opacity w3-text-red w3-medium">Remove this achievement</a></p>
 					</div>
 				</form>
 				

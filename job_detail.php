@@ -60,7 +60,7 @@
 
 							$row2 = $sth->fetch();
 						?>
-						<a href="">
+						<a href=<?php echo "\"./company_detail.php?id=".$row["id_perusahaan"]."\""; ?> >
 							<?php echo $row2["nama"]; ?>
 						</a>
 					</p>

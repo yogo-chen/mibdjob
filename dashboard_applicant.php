@@ -14,7 +14,7 @@
 		<span class="w3-large"><?php echo $row["posisi"]; ?></span>
 		<p>
 			<i class="fa fa-group" style="margin-right: 5px;"></i>
-			<a href=""><?php echo $row["nama_perusahaan"]; ?></a>
+			<a href=<?php echo "\"./company_detail.php?id=".$row["id_perusahaan"]."\""; ?>><?php echo $row["nama_perusahaan"]; ?></a>
 			<span class="w3-padding-ver-8">|</span>
 			<i class="fa fa-dollar w3-text-teal" style="margin-right: 5px;"></i>
 			<span class="w3-text-teal"><?php echo "IDR ".number_format($row["gaji"]); ?></span>
