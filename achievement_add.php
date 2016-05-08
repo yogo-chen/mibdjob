@@ -1,3 +1,9 @@
+<?php
+	include "./session.php";
+	if(!isLoggedIn() || !isApplicant()){
+		header("Location: ./index.php");
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>

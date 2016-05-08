@@ -44,11 +44,14 @@
 ?>
 			<!-- Profile detail -->
 			<div class="w3-container w3-section w3-card-2 w3-white">
-				<header class="w3-padding-xlarge">
-					<i class="fa fa-user w3-xlarge w3-margin-right"></i>
-					<span class="w3-xlarge" style="margin-right: 5px;"><b><?php echo $nama; ?></b></span>
-					<span class="w3-opacity w3-large">(<?php echo $id_pengguna; ?>)</span>
+				<header class="w3-center">
+					<p>
+						<i class="fa fa-user w3-xlarge w3-margin-right"></i>
+						<span class="w3-xlarge" style="margin-right: 5px;"><b><?php echo $nama; ?></b></span>
+						<span class="w3-opacity w3-large">(<?php echo $id_pengguna; ?>)</span>
+					</p>
 				</header>
+				<hr>
 <?php
 			if($id_pengguna === getUsername()){
 ?>
