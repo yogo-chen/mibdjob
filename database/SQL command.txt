@@ -1,0 +1,82 @@
+CREATE TABLE Pengguna(
+	id_pengguna VARCHAR(20) NOT NULL,
+	password TINYTEXT NOT NULL,
+	nama TINYTEXT,
+	email TINYTEXT,
+	jenis_pengguna TINYTEXT,
+	PRIMARY KEY (id_pengguna)
+);
+CREATE TABLE Pelamar(
+	id_pelamar VARCHAR(20) NOT NULL,
+	no_ktp VARCHAR(20),
+	gender TINYTEXT,
+	tanggal_lahir DATE,
+	lokasi TINYTEXT,
+	PRIMARY KEY (id_pelamar),
+	FOREIGN KEY (id_pelamar) REFERENCES Pengguna(id_pengguna)
+);
+CREATE TABLE Prestasi(
+	id_pelamar VARCHAR(20) NOT NULL,
+	nama VARCHAR(255),
+	keterangan TEXT,
+	tanggal DATE,
+	PRIMARY KEY (id_pelamar, nama),
+	FOREIGN KEY (id_pelamar) REFERENCES Pelamar(id_pelamar)
+);
+CREATE TABLE Pengalaman(
+	id_pelamar VARCHAR(20) NOT NULL,
+	instansi VARCHAR(255),
+	posisi VARCHAR(255),
+	keterangan TEXT,
+	tanggal_mulai DATE,
+	tanggal_selesai DATE,
+	PRIMARY KEY (id_pelamar, instansi, posisi),
+	FOREIGN KEY (id_pelamar) REFERENCES Pelamar(id_pelamar)
+);
+CREATE TABLE Akademik(
+	id_pelamar VARCHAR(20) NOT NULL,
+	nama_universitas TINYTEXT,
+	jurusan TINYTEXT,
+	tingkat VARCHAR(255),
+	ip_lulus REAL,
+	tanggal_lulus DATE,
+	PRIMARY KEY (id_pelamar, tingkat),
+	FOREIGN KEY (id_pelamar) REFERENCES Pelamar(id_pelamar)
+);
+CREATE TABLE Perusahaan(
+	id_perusahaan INT NOT NULL AUTO_INCREMENT,
+	nama TINYTEXT,
+	PRIMARY KEY (id_perusahaan)
+);
+CREATE TABLE Pegawai(
+	id_pegawai VARCHAR(20) NOT NULL,
+	id_perusahaan INT NOT NULL,
+	divisi TINYTEXT,
+	PRIMARY KEY (id_pegawai),
+	FOREIGN KEY (id_pegawai) REFERENCES Pengguna(id_pengguna),
+	FOREIGN KEY (id_perusahaan) REFERENCES Perusahaan(id_perusahaan)
+);
+CREATE TABLE Lowongan(
+	id_lowongan INT NOT NULL AUTO_INCREMENT,
+	id_pegawai VARCHAR(20) NOT NULL,
+	id_perusahaan INT NOT NULL,
+	posisi TINYTEXT,
+	gaji INT,
+	keterangan TEXT,
+	tanggal_buka DATE,
+	tanggal_tutup DATE,
+	PRIMARY KEY (id_lowongan),
+	FOREIGN KEY (id_pegawai) REFERENCES Pegawai(id_pegawai),
+	FOREIGN KEY (id_perusahaan) REFERENCES Perusahaan(id_perusahaan)
+);
+CREATE TABLE Lamaran(
+	id_pelamar VARCHAR(20) NOT NULL,
+	id_lowongan INT NOT NULL,
+	tanggal_daftar DATE,
+	status TINYTEXT,
+	tanggal_status DATE,
+	alasan TEXT,
+	PRIMARY KEY (id_pelamar, id_lowongan),
+	FOREIGN KEY (id_pelamar) REFERENCES Pelamar(id_pelamar),
+	FOREIGN KEY (id_lowongan) REFERENCES Lowongan(id_lowongan)
+);
