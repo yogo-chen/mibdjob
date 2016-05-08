@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2016 at 11:25 AM
+-- Generation Time: May 08, 2016 at 11:36 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mibdjob`
 --
+CREATE DATABASE IF NOT EXISTS `mibdjob` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mibdjob`;
 
 -- --------------------------------------------------------
 
