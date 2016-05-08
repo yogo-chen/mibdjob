@@ -53,7 +53,7 @@
 			if($id_pengguna === getUsername()){
 ?>
 				<div class="w3-row">
-					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit profile</a></p>
+					<p><a href="./profile_edit.php" class="w3-right w3-opacity w3-hover-text-teal">Edit profile</a></p>
 				</div>
 <?php
 			}
@@ -119,6 +119,17 @@
 						<?php echo $email; ?>
 					</p>
 				</div>
+				<div class="w3-row">
+					<p class="w3-col s3 m2 l2 w3-right-align">
+						<i class="fa fa-credit-card w3-margin-right"></i>
+					</p>
+					<p class="w3-col s1 m2 l2">
+						<span class="w3-hide-small"><b>ID Card</b></span>
+					</p>
+					<p class="w3-col s8 m8 l8">
+						<?php echo $no_ktp; ?>
+					</p>
+				</div>
 <?php
 		}else if($jenis_pengguna === "employee"){
 			$sql = ("SELECT pr.id_perusahaan id_perusahaan, pr.nama nama_perusahaan, pg.divisi divisi FROM pegawai pg INNER JOIN perusahaan pr ON pg.id_perusahaan = pr.id_perusahaan WHERE pg.id_pegawai = :id_pegawai");
@@ -172,7 +183,7 @@
 			</div>
 <?php
 		if($jenis_pengguna === "applicant"){
-			$sql = ("SELECT up.jurusan jurusan, up.tingkat tingkat, up.ip_lulus ip_lulus, up.tanggal_lulus tanggal_lulus, u.nama nama_universitas FROM universitaspelamar up INNER JOIN universitas u ON up.id_universitas = u.id_universitas WHERE up.id_pelamar = :id_pelamar");
+			$sql = ("SELECT jurusan, tingkat, ip_lulus, tanggal_lulus, nama_universitas FROM akademik WHERE id_pelamar = :id_pelamar");
 			$params = array(":id_pelamar" => $id_pengguna);
 			$sth = $dbh->prepare($sql);
 			$sth->execute($params);
@@ -180,6 +191,13 @@
 			<!-- Academic life -->
 			<div class="w3-container w3-section w3-card-2 w3-white">
 				<header>
+<?php
+	if($id_pengguna === getUsername()){
+?>
+					<a href="academic_add.php" class="w3-btn-floating w3-xxlarge w3-blue w3-right" style="text-decoration: none;">+</a>
+<?php
+	}
+?>
 					<h3 class="w3-center">Academic</h3>
 				</header>
 <?php
@@ -192,15 +210,6 @@
 					$nama_universitas = $row["nama_universitas"];
 ?>
 				<hr>
-<?php
-			if($id_pengguna === getUsername()){
-?>
-				<div class="w3-row">
-					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit this academic</a></p>
-				</div>
-<?php
-			}
-?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-university w3-margin-right"></i>
@@ -260,6 +269,20 @@
 					</p>
 				</div>
 <?php
+			if($id_pengguna === getUsername()){
+?>
+				<form method="post" action="action_academic_delete.php" id=<?php echo "\"remove_".urlencode(getUsername().$tingkat)."\"" ?>>
+					<input name="id_pelamar" value=<?php echo "\"".getUsername()."\"" ?> class="w3-hide">
+					<input name="tingkat" value=<?php echo "\"".$tingkat."\"" ?> class="w3-hide">
+					<div class="w3-row">
+						<p><a href="#" onclick="document.getElementById(<?php echo "'remove_".urlencode(getUsername().$tingkat)."'" ?>).submit()" class="w3-opacity w3-text-red w3-medium">Remove this academic</a></p>
+					</div>
+				</form>
+				
+<?php
+			}
+?>
+<?php
 				}
 			}
 ?>
@@ -273,6 +296,13 @@
 			<!-- Job experience -->
 			<div class="w3-container w3-section w3-card-2 w3-white">
 				<header>
+<?php
+	if($id_pengguna === getUsername()){
+?>
+					<a href="job_experience_add.php" class="w3-btn-floating w3-xxlarge w3-blue w3-right" style="text-decoration: none;">+</a>
+<?php
+	}
+?>
 					<h3 class="w3-center">Job Experience</h3>
 				</header>
 <?php
@@ -285,15 +315,6 @@
 					$tanggal_selesai = $row["tanggal_selesai"];
 ?>
 				<hr>
-<?php
-			if($id_pengguna === getUsername()){
-?>
-				<div class="w3-row">
-					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit this job experience</a></p>
-				</div>
-<?php
-			}
-?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-group w3-margin-right"></i>
@@ -353,6 +374,21 @@
 					</p>
 				</div>
 <?php
+			if($id_pengguna === getUsername()){
+?>
+				<form method="post" action="action_job_experience_delete.php" id=<?php echo "\"remove_".urlencode(getUsername().$instansi.$posisi)."\"" ?>>
+					<input name="id_pelamar" value=<?php echo "\"".getUsername()."\"" ?> class="w3-hide">
+					<input name="instansi" value=<?php echo "\"".$instansi."\"" ?> class="w3-hide">
+					<input name="posisi" value=<?php echo "\"".$posisi."\"" ?> class="w3-hide">
+					<div class="w3-row">
+						<p><a href="#" onclick="document.getElementById(<?php echo "'remove_".urlencode(getUsername().$instansi.$posisi)."'" ?>).submit()" class="w3-opacity w3-text-red w3-medium">Remove this job experience</a></p>
+					</div>
+				</form>
+				
+<?php
+			}
+?>
+<?php
 				}
 			}
 ?>
@@ -366,6 +402,13 @@
 				<!-- Achievement -->
 			<div class="w3-container w3-section w3-card-2 w3-white">
 				<header>
+<?php
+	if($id_pengguna === getUsername()){
+?>
+					<a href="./achievement_add.php" class="w3-btn-floating w3-xxlarge w3-blue w3-right" style="text-decoration: none;">+</a>
+<?php
+	}
+?>
 					<h3 class="w3-center">Achievement</h3>
 				</header>
 <?php
@@ -376,15 +419,6 @@
 					$tanggal = $row["tanggal"];
 ?>
 				<hr>
-<?php
-			if($id_pengguna === getUsername()){
-?>
-				<div class="w3-row">
-					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit this achievement</a></p>
-				</div>
-<?php
-			}
-?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-trophy w3-margin-right"></i>
@@ -407,6 +441,20 @@
 						<?php echo $tanggal; ?>
 					</p>
 				</div>
+<?php
+			if($id_pengguna === getUsername()){
+?>
+				<form method="post" action="action_achievement_delete.php" id=<?php echo "\"remove_".urlencode(getUsername().$nama)."\"" ?>>
+					<input name="id_pelamar" value=<?php echo "\"".getUsername()."\"" ?> class="w3-hide">
+					<input name="nama" value=<?php echo "\"".$nama."\"" ?> class="w3-hide">
+					<div class="w3-row">
+						<p><a href="#" onclick="document.getElementById(<?php echo "'remove_".urlencode(getUsername().$nama)."'" ?>).submit()" class="w3-opacity w3-text-red w3-medium">Remove this academic</a></p>
+					</div>
+				</form>
+				
+<?php
+			}
+?>
 <?php
 				}
 			}

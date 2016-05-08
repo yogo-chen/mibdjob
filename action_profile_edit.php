@@ -18,8 +18,10 @@
 		$location = $_POST["location"];
 
 		$sql = ("UPDATE pelamar SET no_ktp = :ktp, gender = :gender, tanggal_lahir = :birthday, lokasi = :location WHERE id_pelamar = :username");
-		$params = array(":ktp" => $ktp, ":gender" => $gender, ":birthday" => $birthday, ":location" => $location, ":username" => $id_pengguna);
+		$params = array(":ktp" => $ktp, ":gender" => $gender, ":birthday" => $birthday, ":location" => $location, ":username" => $username);
 		$sth = $dbh->prepare($sql);
 		$sth->execute($params);
 	}
+
+	header("Location: ./profile.php");
 ?>
