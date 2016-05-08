@@ -50,6 +50,15 @@
 					<span class="w3-opacity w3-large">(<?php echo $id_pengguna; ?>)</span>
 				</header>
 <?php
+			if($id_pengguna === getUsername()){
+?>
+				<div class="w3-row">
+					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit profile</a></p>
+				</div>
+<?php
+			}
+?>
+<?php
 		if($jenis_pengguna === "applicant"){
 			$sql = ("SELECT no_ktp, gender, tanggal_lahir, lokasi FROM pelamar WHERE id_pelamar = :id_pelamar");
 			$params = array(":id_pelamar" => $id_pengguna);
@@ -167,7 +176,13 @@
 			$params = array(":id_pelamar" => $id_pengguna);
 			$sth = $dbh->prepare($sql);
 			$sth->execute($params);
-
+?>
+			<!-- Academic life -->
+			<div class="w3-container w3-section w3-card-2 w3-white">
+				<header>
+					<h3 class="w3-center">Academic</h3>
+				</header>
+<?php
 			if($res = $sth->fetchAll()){
 				foreach ($res as $row) {
 					$jurusan = $row["jurusan"];
@@ -175,43 +190,17 @@
 					$ip_lulus = $row["ip_lulus"];
 					$tanggal_lulus = $row["tanggal_lulus"];
 					$nama_universitas = $row["nama_universitas"];
-				}
-			}
-
-			$sql = ("SELECT instansi, posisi, keterangan, tanggal_mulai, tanggal_selesai FROM pengalaman WHERE id_pelamar = :id_pelamar");
-			$params = array(":id_pelamar" => $id_pengguna);
-			$sth = $dbh->prepare($sql);
-			$sth->execute($params);
-
-			if($res = $sth->fetchAll()){
-				foreach ($res as $row) {
-					$instansi = $row["instansi"];
-					$posisi = $row["posisi"];
-					$keterangan = $row["keterangan"];
-					$tanggal_mulai = $row["tanggal_mulai"];
-					$tanggal_selesai = $row["tanggal_selesai"];
-				}
-			}
-
-			$sql = ("SELECT nama, keterangan, tanggal FROM prestasi WHERE id_pelamar = :id_pelamar");
-			$params = array(":id_pelamar" => $id_pengguna);
-			$sth = $dbh->prepare($sql);
-			$sth->execute($params);
-
-			if($res = $sth->fetchAll()){
-				foreach ($res as $row) {
-					$nama = $row["nama"];
-					$keterangan = $row["keterangan"];
-					$tanggal = $row["tanggal"];
-				}
-			}
-		}
-	}
 ?>
-			<!-- Academic life -->
-			<div class="w3-container w3-section w3-card-2 w3-white">
-				<h3 class="w3-center">Academic</h3>
 				<hr>
+<?php
+			if($id_pengguna === getUsername()){
+?>
+				<div class="w3-row">
+					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit this academic</a></p>
+				</div>
+<?php
+			}
+?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-university w3-margin-right"></i>
@@ -220,7 +209,7 @@
 						<span class="w3-hide-small"><b>University</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $nama_universitas; ?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -231,7 +220,7 @@
 						<span class="w3-hide-small"><b>Major</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $jurusan; ?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -242,7 +231,7 @@
 						<span class="w3-hide-small"><b>Degree</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $tingkat; ?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -253,7 +242,10 @@
 						<span class="w3-hide-small"><b>Class</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php
+							$date = explode("-", $tanggal_lulus);
+							echo $date[0];
+						?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -264,14 +256,44 @@
 						<span class="w3-hide-small"><b>GPA</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $ip_lulus; ?>
 					</p>
 				</div>
+<?php
+				}
+			}
+?>
 			</div>
+<?php
+			$sql = ("SELECT instansi, posisi, keterangan, tanggal_mulai, tanggal_selesai FROM pengalaman WHERE id_pelamar = :id_pelamar");
+			$params = array(":id_pelamar" => $id_pengguna);
+			$sth = $dbh->prepare($sql);
+			$sth->execute($params);
+?>
 			<!-- Job experience -->
 			<div class="w3-container w3-section w3-card-2 w3-white">
-				<h3 class="w3-center">Job Experience</h3>
+				<header>
+					<h3 class="w3-center">Job Experience</h3>
+				</header>
+<?php
+			if($res = $sth->fetchAll()){
+				foreach ($res as $row) {
+					$instansi = $row["instansi"];
+					$posisi = $row["posisi"];
+					$keterangan = $row["keterangan"];
+					$tanggal_mulai = $row["tanggal_mulai"];
+					$tanggal_selesai = $row["tanggal_selesai"];
+?>
 				<hr>
+<?php
+			if($id_pengguna === getUsername()){
+?>
+				<div class="w3-row">
+					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit this job experience</a></p>
+				</div>
+<?php
+			}
+?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-group w3-margin-right"></i>
@@ -280,7 +302,7 @@
 						<span class="w3-hide-small"><b>Company</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $instansi; ?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -291,7 +313,7 @@
 						<span class="w3-hide-small"><b>Position</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $posisi; ?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -299,17 +321,70 @@
 						<i class="fa fa-clock-o w3-margin-right"></i>
 					</p>
 					<p class="w3-col s1 m2 l2">
-						<span class="w3-hide-small"><b>Works</b></span>
+						<span class="w3-hide-small"><b>Duration</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php
+							$date_start = explode("-", $tanggal_mulai);
+							$date_end = explode("-", $tanggal_selesai);
+							$diffYear = $date_end[0] - $date_start[0];
+							if($diffYear > 1){
+								echo $diffYear." years";
+							}else if($diffYear == 1){
+								echo $diffYear." year";
+							}else{
+								$diffMonth = $date_end[1] - $date_start[1];
+								if($diffMonth > 1){
+									echo $diffMonth." months";
+								}else{
+									echo $diffMonth." month";
+								}
+							}
+						?>
+						<span class="w3-opacity">
+							<?php
+								if($diffYear > 0){
+									echo "(".$date_start[0]."-".$date_end[0].")";
+								}else{
+									echo "(".$date_start[0].")";
+								}
+							?>
+						</span>
 					</p>
 				</div>
+<?php
+				}
+			}
+?>
 			</div>
-			<!-- Achievement -->
+<?php
+			$sql = ("SELECT nama, keterangan, tanggal FROM prestasi WHERE id_pelamar = :id_pelamar");
+			$params = array(":id_pelamar" => $id_pengguna);
+			$sth = $dbh->prepare($sql);
+			$sth->execute($params);
+?>
+				<!-- Achievement -->
 			<div class="w3-container w3-section w3-card-2 w3-white">
-				<h3 class="w3-center">Achievement</h3>
+				<header>
+					<h3 class="w3-center">Achievement</h3>
+				</header>
+<?php
+			if($res = $sth->fetchAll()){
+				foreach ($res as $row) {
+					$nama = $row["nama"];
+					$keterangan = $row["keterangan"];
+					$tanggal = $row["tanggal"];
+?>
 				<hr>
+<?php
+			if($id_pengguna === getUsername()){
+?>
+				<div class="w3-row">
+					<p><a href="" class="w3-right w3-opacity w3-hover-text-teal">Edit this achievement</a></p>
+				</div>
+<?php
+			}
+?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-trophy w3-margin-right"></i>
@@ -318,7 +393,7 @@
 						<span class="w3-hide-small"><b>Name</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $nama; ?>
 					</p>
 				</div>
 				<div class="w3-row">
@@ -326,13 +401,21 @@
 						<i class="fa fa-calendar w3-margin-right"></i>
 					</p>
 					<p class="w3-col s1 m2 l2">
-						<span class="w3-hide-small"><b>Year</b></span>
+						<span class="w3-hide-small"><b>Time</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						Bla bla
+						<?php echo $tanggal; ?>
 					</p>
 				</div>
+<?php
+				}
+			}
+?>
 			</div>
+<?php
+		}
+	}
+?>
 		</div>
 	</div>
 </body>
