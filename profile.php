@@ -153,7 +153,7 @@
 						<span class="w3-hide-small"><b>Company</b></span>
 					</p>
 					<p class="w3-col s8 m8 l8">
-						<a href="">
+						<a href=<?php echo "\"./company_detail.php?id=".$id_perusahaan."\""; ?>>
 							<?php echo $nama_perusahaan; ?>
 						</a>
 					</p>
