@@ -57,7 +57,7 @@
 						<div class="w3-col s8 m8 l8" style="padding-top: 6px;">
 							<input type="radio" value="male" name="gender" class="w3-radio" required <?php if($gender === "male"){echo "checked";} ?>>
 							<span>male</span>
-							<input type="radio" value="male" name="gender" class="w3-radio" required <?php if($gender === "female"){echo "checked";} ?>>
+							<input type="radio" value="female" name="gender" class="w3-radio" required <?php if($gender === "female"){echo "checked";} ?>>
 							<span>female</span>
 						</div>
 					</div>

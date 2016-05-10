@@ -32,6 +32,20 @@
 			<div class="w3-container w3-section w3-card-2 w3-white">
 				<h3 class="w3-center">Information</h3>
 				<hr>
+				<?php
+					$sql = ("SELECT * FROM lowongan WHERE id_lowongan = :id_lowongan AND id_pegawai = :username");
+					$params = array(":id_lowongan" => $id_lowongan, ":username" => getUsername());
+					$sth = $dbh->prepare($sql);
+					$sth->execute($params);
+
+					if($sth->fetch()){
+				?>
+				<div class="w3-row">
+					<p class="w3-right w3-text-teal"><a href=<?php echo "./job_edit.php?id=".$id_lowongan ?>>Edit job</a></p>
+				</div>
+				<?php
+					}
+				?>
 				<div class="w3-row">
 					<p class="w3-col s3 m2 l2 w3-right-align">
 						<i class="fa fa-suitcase w3-margin-right"></i>
@@ -109,9 +123,20 @@
 						<?php echo $row["tanggal_tutup"]; ?>
 					</p>
 				</div>
-				<div>
+				<?php
+					$sql = ("SELECT * FROM lowongan WHERE id_lowongan = :id_lowongan AND id_pegawai = :username");
+					$params = array(":id_lowongan" => $id_lowongan, ":username" => getUsername());
+					$sth = $dbh->prepare($sql);
+					$sth->execute($params);
+
+					if($sth->fetch()){
+				?>
+				<div class="w3-row">
 					<p class="w3-text-red"><a href=<?php echo "./action_job_delete.php?id_lowongan=".$id_lowongan ?>>Remove this job from list</a></p>
 				</div>
+				<?php
+					}
+				?>
 			</div>
 			<?php 
 				if(isLoggedIn() && isApplicant()){
