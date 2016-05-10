@@ -109,6 +109,9 @@
 						<?php echo $row["tanggal_tutup"]; ?>
 					</p>
 				</div>
+				<div>
+					<p class="w3-text-red"><a href=<?php echo "./action_job_delete.php?id_lowongan=".$id_lowongan ?>>Remove this job from list</a></p>
+				</div>
 			</div>
 			<?php 
 				if(isLoggedIn() && isApplicant()){
